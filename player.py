@@ -46,10 +46,10 @@ class Player:
 #            #le reste du temps on fait que vendre
         if 11<=time<=22 :
             if (self.prices["sale"][time-1]>=self.prices["purchase"][8]):
-                if (self.battery_stock["slow"][time][0]>13):
+                if (self.battery_stock["slow"][time][0]>11.5 and self.battery_stock["fast"][time][0]>18.5):
                     load_battery = {"fast" : -17*np.ones(2),"slow" : -3*np.ones(2)}
-                else :
-                    load_battery = {"fast" : -17*np.ones(2),"slow" : 3*np.ones(2)}
+                if (self.battery_stock["slow"][time][0]>11.5 and self.battery_stock["fast"][time][0]<18.5):
+                    load_battery = {"fast" : 0*np.ones(2),"slow" : -3*np.ones(2)}
         if 30<=time<=44 :
             if (self.prices["sale"][time-1]>=self.prices["purchase"][8]):
                 load_battery = {"fast" : 0*np.ones(2),"slow" : -3*np.ones(2)}
