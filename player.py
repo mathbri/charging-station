@@ -34,13 +34,15 @@ class Player:
 
     def take_decision(self, time):
         #Exemple : simple politics
-        load_battery = {"fast" : np.zeros(2),"slow" : np.zeros(2)}
-        #if time<6*2:
-        #    load_battery = {"fast" : 17*np.ones(2),"slow" : 3*np.ones(2)}
+        if 0<time<4*2:
+            load_battery = {"fast" : -17*np.ones(2),"slow" : -3*np.ones(2)}
             #From 0 am to 6 am we charge as fast as we can
-        #if time>18*2:
-        #    load_battery = {"fast" : -17*np.ones(2),"slow" : -3*np.ones(2)}
+        if 16*2<time<20*2:
+            load_battery = {"fast" : -17*np.ones(2),"slow" : -3*np.ones(2)}
             #From 6 pm to 12pm we sell the stock we have
+        else :
+            load_battery = {"fast" : 17*np.ones(2),"slow" : 3*np.ones(2)}
+            #le reste du temps on fait que vendre
         # TO BE COMPLETED
         # Be carefull if the sum in load_battery is over pmax_station = 40 then the cars wont be charged as you want.
         # Have to return load_battery to put in update_batterie_stock to get the load.
