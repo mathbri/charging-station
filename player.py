@@ -34,7 +34,9 @@ class Player:
 
     def take_decision(self, time):
         #Exemple : simple politics
-        load_battery = {"fast" : 0*np.ones(2),"slow" : 0*np.ones(2)}
+        #load_battery = {"fast" : 0*np.ones(2),"slow" : 0*np.ones(2)}
+        charge_rapide = 0
+        charge_lente = 0
 #        if 0<time<4*2:
 #            load_battery = {"fast" : -17*np.ones(2),"slow" : -3*np.ones(2)}
 #            #From 0 am to 6 am we charge as fast as we can
@@ -44,19 +46,29 @@ class Player:
 #        else :
 #            load_battery = {"fast" : 17*np.ones(2),"slow" : 3*np.ones(2)}
 #            #le reste du temps on fait que vendre
+        if 11<=time<=44 :
+            if time<=22 :
+                if self.battery_stock["slow"][time][0]>11.5 :
+                    charge_lente = -3
+            else :
+                charge_lente = -3
+        
         if 11<=time<=22 :
             if (self.prices["sale"][time-1]>=self.prices["purchase"][8]):
-                if (self.battery_stock["slow"][time][0]>11.5 and self.battery_stock["fast"][time][0]>18.5):
-                    load_battery = {"fast" : -17*np.ones(2),"slow" : -3*np.ones(2)}
-                if (self.battery_stock["slow"][time][0]>11.5 and self.battery_stock["fast"][time][0]<18.5):
-                    load_battery = {"fast" : 0*np.ones(2),"slow" : -3*np.ones(2)}
-        if 30<=time<=44 :
+                if self.battery_stock["fast"][time][0]>18.5:
+                    charge_rapide = -17
+                else :
+                    charge_rapide = 0
+                    
+        if time >= 39:
             if (self.prices["sale"][time-1]>=self.prices["purchase"][8]):
-                load_battery = {"fast" : 0*np.ones(2),"slow" : -3*np.ones(2)}
-                if time >= 39:
-                    load_battery = {"fast" : -17*np.ones(2),"slow" : -3*np.ones(2)}
+                charge_rapide = -17
+                    
         if time<11 or time>44:
-            load_battery = {"fast" : 17*np.ones(2),"slow" : 3*np.ones(2)}
+            charge_rapide = 17
+            charge_lente = 3
+        
+        load_battery = {"fast" : charge_rapide*np.ones(2),"slow" : charge_lente*np.ones(2)}
         
         # TO BE COMPLETED
         # Be carefull if the sum in load_battery is over pmax_station = 40 then the cars wont be charged as you want.
