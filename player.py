@@ -65,7 +65,7 @@ class Player:
                 charge_rapide = -17
                     
         if time<11 or time>44:
-            charge_rapide = 17
+            charge_rapide = 3.3
             charge_lente = 3
         
         load_battery = {"fast" : charge_rapide*np.ones(2),"slow" : charge_lente*np.ones(2)}
