@@ -37,6 +37,7 @@ class Player:
         #load_battery = {"fast" : 0*np.ones(2),"slow" : 0*np.ones(2)}
         charge_rapide = 0
         charge_lente = 0
+        yoyo = False
 #        if 0<time<4*2:
 #            load_battery = {"fast" : -17*np.ones(2),"slow" : -3*np.ones(2)}
 #            #From 0 am to 6 am we charge as fast as we can
@@ -65,8 +66,12 @@ class Player:
                 charge_rapide = -17
                     
         if time<11 or time>44:
-            charge_rapide = 3.3
-            charge_lente = 3
+            if 0<=time<=2 : 
+                charge_rapide = 0
+                charge_lente = 0
+            else: 
+                charge_rapide = 7
+                charge_lente = 3
         
         load_battery = {"fast" : charge_rapide*np.ones(2),"slow" : charge_lente*np.ones(2)}
         
